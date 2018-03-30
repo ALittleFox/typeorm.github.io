@@ -162,7 +162,7 @@ const Links = [
             },
             {
                 url: "using-cli",
-                name: "使用命令工具"
+                name: "使用命令行工具"
             },
         ]
     },

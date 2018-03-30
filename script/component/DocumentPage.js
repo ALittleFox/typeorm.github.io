@@ -38,24 +38,24 @@ const DocumentPage = {
     computed: {
         readUrl: function () {
             if (this.document === "changelog") {
-                return `https://raw.githubusercontent.com/huanz/typeorm/master/CHANGELOG.md`;
+                return `https://raw.githubusercontent.com/typeorm/typeorm/master/CHANGELOG.md`;
 
             } else if (!this.document || this.document === "readme") {
-                return `https://raw.githubusercontent.com/huanz/typeorm/master/README.md`;
+                return `https://raw.githubusercontent.com/huanz/typeorm.github.io/master/README.md`;
 
             } else {
-                return `https://raw.githubusercontent.com/huanz/typeorm/master/docs/${this.document}.md`;
+                return `https://raw.githubusercontent.com/huanz/typeorm.github.io/master/docs/${this.document}.md`;
             }
         },
         editUrl: function () {
             if (this.document === "changelog") {
-                return `https://github.com/huanz/typeorm/edit/master/CHANGELOG.md`;
+                return `https://github.com/typeorm/typeorm/edit/master/CHANGELOG.md`;
 
             } else if (!this.document) {
-                return `https://github.com/huanz/typeorm/edit/master/README.md`;
+                return `https://github.com/huanz/typeorm.github.io/edit/master/README.md`;
 
             } else {
-                return `https://github.com/huanz/typeorm/edit/master/docs/${this.document}.md`;
+                return `https://github.com/huanz/typeorm.github.io/edit/master/docs/${this.document}.md`;
             }
         }
     }

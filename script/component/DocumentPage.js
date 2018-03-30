@@ -4,7 +4,7 @@ const DocumentPage = {
     <markdown-reader :file="readUrl" :fragment="fragment"></markdown-reader>
     
     <div class="contribute small">
-        Found a typo and want to contribute to the documentation? <a :href="editUrl">Edit this page on Github!</a>
+        发现错误想参与编辑? <a :href="editUrl">在 GitHub 上编辑此页！</a>
     </div>
 </div>
 `,
@@ -38,24 +38,24 @@ const DocumentPage = {
     computed: {
         readUrl: function () {
             if (this.document === "changelog") {
-                return `https://raw.githubusercontent.com/typeorm/typeorm/master/CHANGELOG.md`;
+                return `https://raw.githubusercontent.com/huanz/typeorm/master/CHANGELOG.md`;
 
             } else if (!this.document || this.document === "readme") {
-                return `https://raw.githubusercontent.com/typeorm/typeorm/master/README.md`;
+                return `https://raw.githubusercontent.com/huanz/typeorm/master/README.md`;
 
             } else {
-                return `https://raw.githubusercontent.com/typeorm/typeorm/master/docs/${this.document}.md`;
+                return `https://raw.githubusercontent.com/huanz/typeorm/master/docs/${this.document}.md`;
             }
         },
         editUrl: function () {
             if (this.document === "changelog") {
-                return `https://github.com/typeorm/typeorm/edit/master/CHANGELOG.md`;
+                return `https://github.com/huanz/typeorm/edit/master/CHANGELOG.md`;
 
             } else if (!this.document) {
-                return `https://github.com/typeorm/typeorm/edit/master/README.md`;
+                return `https://github.com/huanz/typeorm/edit/master/README.md`;
 
             } else {
-                return `https://github.com/typeorm/typeorm/edit/master/docs/${this.document}.md`;
+                return `https://github.com/huanz/typeorm/edit/master/docs/${this.document}.md`;
             }
         }
     }

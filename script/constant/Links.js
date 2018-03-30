@@ -1,131 +1,131 @@
 const Links = [
     {
         url: "",
-        name: "Getting Started"
+        name: "快速开始"
     },
     {
-        name: "Connection",
+        name: "连接",
         links: [
             {
                 url: "connection",
-                name: "Working with Connection"
+                name: "创建连接"
             },
             {
                 url: "using-ormconfig",
-                name: "Using ormconfig.json"
+                name: "使用 ormconfig.json"
             },
             {
                 url: "connection-options",
-                name: "Connection Options"
+                name: "连接选项"
             },
             {
                 url: "multiple-connections",
-                name: "Multiple Connections"
+                name: "多个连接"
             },
             {
                 url: "connection-api",
-                name: "Connection API"
+                name: "连接API"
             }
         ]
     },
     {
-        name: "Entity",
+        name: "实体",
         links: [
             {
                 url: "entities",
-                name: "What is Entity?"
+                name: "什么是实体？"
             },
             {
                 url: "embedded-entities",
-                name: "Embedded Entities"
+                name: "嵌入式实体"
             },
             {
                 url: "entity-inheritance",
-                name: "Entity Inheritance"
+                name: "实体继承"
             },
             {
                 url: "tree-entities",
-                name: "Tree Entities"
+                name: "树形实体"
             },
         ]
     },
     {
-        name: "Relations",
+        name: "关系",
         links: [
             {
                 url: "relations",
-                name: "What are Relations?"
+                name: "什么是关系？"
             },
             {
                 url: "one-to-one-relations",
-                name: "One-to-One"
+                name: "一对一"
             },
             {
                 url: "many-to-one-one-to-many-relations",
-                name: "Many-to-One and One-to-Many"
+                name: "多对一和一对多"
             },
             {
                 url: "many-to-many-relations",
-                name: "Many-to-Many"
+                name: "多对多"
             },
             {
                 url: "eager-and-lazy-relations",
-                name: "Eager and Lazy Relations"
+                name: "贪婪与延迟关系"
             },
             {
                 url: "relations-faq",
-                name: "Relations FAQ"
+                name: "关系常见问题"
             },
         ]
     },
     {
-        name: "Entity Manager and Repository",
+        name: "实体管理器和存储库",
         links: [
             {
                 url: "working-with-entity-manager",
-                name: "Working with Entity Manager"
+                name: "使用实体管理器"
             },
             {
                 url: "working-with-repository",
-                name: "Working with Repository"
+                name: "使用存储库"
             },
             {
                 url: "find-options",
-                name: "Find Options"
+                name: "查询选项"
             },
             {
                 url: "custom-repository",
-                name: "Custom Repository"
+                name: "自定义存储库"
             },
             {
                 url: "entity-manager-api",
-                name: "Entity Manager API"
+                name: "实体管理器API"
             },
             {
                 url: "repository-api",
-                name: "Repository API"
+                name: "存储库API"
             },
         ]
     },
     {
         url: "query-builder",
-        name: "Query Builder",
+        name: "查询生成器",
         links: [
             {
                 url: "select-query-builder",
-                name: "Select using Query Builder"
+                name: "使用查询生成器进行选择"
             },
             {
                 url: "insert-query-builder",
-                name: "Insert using Query Builder"
+                name: "使用查询生成器进行插入"
             },
             {
                 url: "update-query-builder",
-                name: "Update using Query Builder"
+                name: "使用查询生成器进行更新"
             },
             {
                 url: "delete-query-builder",
-                name: "Delete using Query Builder"
+                name: "使用查询生成器进行删除"
             },
             {
                 url: "relational-query-builder",
@@ -133,65 +133,65 @@ const Links = [
             },
             {
                 url: "caching",
-                name: "Caching Results"
+                name: "缓存结果"
             },
         ]
     },
     {
-        name: "Advanced Topics",
+        name: "高级话题",
         links: [
             {
                 url: "migrations",
-                name: "Migrations"
+                name: "迁移"
             },
             {
                 url: "transactions",
-                name: "Transactions"
+                name: "事务"
             },
             {
                 url: "indices",
-                name: "Indices"
+                name: "索引"
             },
             {
                 url: "listeners-and-subscribers",
-                name: "Listeners and Subscribers"
+                name: "监听和订阅"
             },
             {
                 url: "logging",
-                name: "Logging"
+                name: "日志"
             },
             {
                 url: "using-cli",
-                name: "Using CLI"
+                name: "使用命令工具"
             },
         ]
     },
     {
-        name: "Guides",
+        name: "指南",
         links: [
             {
                 url: "active-record-data-mapper",
-                name: "Active Record vs Data Mapper"
+                name: "活动记录与数据映射器"
             },
             {
                 url: "mongodb",
-                name: "Working with MongoDB"
+                name: "使用MongoDB"
             },
             {
                 url: "validation",
-                name: "Using Validation"
+                name: "使用校验"
             },
             {
                 url: "example-with-express",
-                name: "Example with Express"
+                name: "Express的例子"
             },
             {
                 url: "usage-with-javascript",
-                name: "Usage with JavaScript"
+                name: "使用JavaScript"
             },
             {
                 url: "sequelize-migration",
-                name: "Migration from Sequelize"
+                name: "从Sequelize迁移"
             },
             // {
             //     url: "schema-in-files",
@@ -204,19 +204,19 @@ const Links = [
         ]
     },
     {
-        name: "Help",
+        name: "帮助",
         links: [
             {
                 url: "faq",
-                name: "FAQ"
+                name: "常见问题"
             },
             {
                 url: "supported-platforms",
-                name: "Supported Platforms"
+                name: "支持的平台"
             },
             {
                 url: "decorator-reference",
-                name: "Decorator Reference"
+                name: "装饰器介绍"
             },
             // {
             //     url: "internals",
@@ -224,15 +224,15 @@ const Links = [
             // },
             {
                 url: "roadmap",
-                name: "Roadmap"
+                name: "规划"
             },
             {
                 url: "changelog",
-                name: "Changelog"
+                name: "更新日志"
             },
             {
                 url: "support",
-                name: "Support"
+                name: "支持"
             }
         ]
     },

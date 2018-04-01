@@ -1217,7 +1217,7 @@ Photo的albums是左联接，photo的metadata是内联接。
 
 ## 赞助商 🤑
 
-成为赞助商来支持这个项目。你的logo将会放在这里链接到你的网站。[成为赞助商](https://opencollective.com/typeorm#sponsor)
+成为赞助商来支持这个项目。你的logo将会放在这里。[成为赞助商](https://opencollective.com/typeorm#sponsor)
 
 <a href="https://opencollective.com/typeorm/sponsor/0/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/typeorm/sponsor/1/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/1/avatar.svg"></a>

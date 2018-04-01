@@ -1,3 +1,25 @@
+<div align="center">
+  <a href="https://typeorm.io/">
+    <img src="https://github.com/typeorm/typeorm/raw/master/resources/logo_big.png" width="492" height="228">
+  </a>
+  <br>
+  <br>
+	<a href="https://travis-ci.org/typeorm/typeorm">
+		<img src="https://travis-ci.org/typeorm/typeorm.svg?branch=master">
+	</a>
+	<a href="https://badge.fury.io/js/typeorm">
+		<img src="https://badge.fury.io/js/typeorm.svg">
+	</a>
+	<a href="https://david-dm.org/typeorm/typeorm">
+		<img src="https://david-dm.org/typeorm/typeorm.svg">
+	</a>
+	<a href="https://gitter.im/typeorm/typeorm?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
+		<img src="https://badges.gitter.im/typeorm/typeorm.svg">
+	</a>
+  <br>
+  <br>
+</div>
+
 TypeORM是一个优秀的Node.js ORM框架，采用TypeScript编写，支持使用TypeScript或Javascript(ES5, ES6, ES7)开发。
 目标是保持支持最新的Javascript特性来帮助开发各种用到数据库的应用 - 不管是轻应用还是企业级的。
 

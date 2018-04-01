@@ -1,25 +1,29 @@
 # 使用连接
 
-* [What is `Connection`](#what-is-connection)
-* [Creating a new connection](#creating-a-new-connection)
-* [Using `ConnectionManager`](#using-connectionmanager)
-* [Working with connection](#working-with-connection-1)
-    
-## What is `Connection`
+* [什么是`Connection`](#what-is-connection)
+* [创建一个新连接](#creating-a-new-connection)
+* [使用 `ConnectionManager`](#using-connectionmanager)
+* [使用连接](#working-with-connection-1)
 
-Connection sets a real connection with your database up.
-Depending on the database type it may also setup a connection pool. 
-Connection (or connection pool) setup is made when `connect` is called.
-Disconnection (or closing all connections in the pool) is made when `close` is called.
-Generally, you must create connection only once in your application bootstrap,
-and close it after you completely finished working with the database.
+## 什么是 `Connection`
 
-## Creating a new connection
+连接建立了与数据库的真正连接。
 
-There are several ways how a connection can be created. 
-The most simple and common way is to use `createConnection` and `createConnections`.
+根据数据库的类型，它也可能建立一个连接池。
 
-* `createConnection` creates a single connection:
+连接（或连接池）的建立是在调用`connect`的时候触发的。
+
+断开（或关闭连接池中的所有连接）是在调用`close`的时候触发的。
+
+通常来说，你必须在你的应用引导程序中创建一次连接，并在你完全用完数据库后关闭它。
+
+## 创建一个新连接
+
+有好几种方法可以创建连接。
+
+最简单常用的方法是使用 `createConnection` 和 `createConnections`。
+
+* `createConnection` 创建一个连接：
 
 ```typescript
 import {createConnection, Connection} from "typeorm";
@@ -34,7 +38,7 @@ const connection: Connection = await createConnection({
 });
 ```
 
-* `createConnections` creates multiple connections:
+* `createConnections` 创建多个连接：
 
 ```typescript
 import {createConnections, Connection} from "typeorm";
@@ -58,10 +62,11 @@ const connections: Connection[] = await createConnections([{
 }]);
 ```
 
-Both these methods automatically call `Connection#connect`.
+这两种方法都自动调用 `Connection#connect`。
 
-Both these methods automatically load configuration from `ormconfig` file if connection options not specified.
-For example:
+如果没有指定连接选项，这两种方法都可以自动地从`ormconfig`文件读取配置。
+
+例如：
 
 ```typescript
 import {createConnection, Connection} from "typeorm";
@@ -80,11 +85,13 @@ const secondConnection: Connection = await createConnection("test2-connection");
 // it will initialize and return all connections defined in ormconfig file
 ```
 
-Different connections must have different names.
-By default, if connection name is not specified it's equal to `default`.
-Usually, you use multiple connections when you have multiple databases or multiple connection configurations.
+不同的连接必须有不同的名称。
 
-Once you created a connection you can obtain it anywhere from your app, using `getConnection`:
+默认情况下，如果没有指定连接名称，它就等于 `default`。
+
+通常，当你有多个数据库或多个连接配置时，你会使用多个连接。
+
+一旦你创建了一个连接，你就可以从你的应用程序的任何地方获得它，使用 `getConnection`：
 
 ```typescript
 import {getConnection} from "typeorm";
@@ -96,13 +103,15 @@ const connection = getConnection();
 const secondConnection = getConnection("test2-connection");
 ```
 
-Avoid creating extra classes / services to store and manager your connections.
-This functionality is already embedded into TypeORM - 
-you don't need to overengineer and create useless abstractions.
+避免创建额外的类或服务来存储和管理你的连接。
 
-## Using `ConnectionManager`
+这个功能已经嵌入到TypeORM中了。
 
-You can create connection using `ConnectionManager` class. For example:
+你不需要再额外设计和创建无用的逻辑。
+
+## 使用 `ConnectionManager`
+
+你可以使用 `ConnectionManager` 类创建连接，例如：
 
 ```typescript
 import {getConnectionManager, ConnectionManager, Connection} from "typeorm";
@@ -119,10 +128,11 @@ const connection: Connection = connectionManager.create({
 await connection.connect(); // performs connection
 ```
 
-This is not the general way of creating a connection, but it may be useful for some users.
-For example, users who want to create connection and store its instance, 
-but have to control when the actual "connection" will be established.
-Also you can create and maintain your own `ConnectionManager`:
+这不是创建连接的普遍方法，但它可能对某些用户有用。
+
+例如用户想创建连接并存储其实例，但是必须在实际“连接”建立的时候进行控制。
+
+你还可以创建并维护自己的 `ConnectionManager`：
 
 ```typescript
 import {getConnectionManager, ConnectionManager, Connection} from "typeorm";
@@ -139,16 +149,15 @@ const connection: Connection = connectionManager.create({
 await connection.connect(); // performs connection
 ```
 
-But note, this way you won't be able to use `getConnection()` anymore - 
-you'll need to store your connection manager instance and use `connectionManager.get` to get a connection you need.
+但是注意，这种方式你就不能使用 `getConnection` 了——你必须存储你的连接管理器实例并在需要的时候使用 `connectionManager.get` 获取一个连接。
 
-Generally avoid this method and avoid unnecessary complications in your application,
-use `ConnectionManager` only if you really think you need it.
+通常要避免这种方法，以避免在应用程序中出现不必要的麻烦，仅当你必须要使用的时候才使用 `ConnectionManager`。
 
-## Working with connection
+## 使用连接
 
-Once you set your connection up, you can use it anywhere in your app using `getConnection`.
-For example:
+一旦你的连接建立起来，你就可以在你的应用程序的任何地方通过 `getConnection` 使用它。
+
+例如：
 
 ```typescript
 import {getConnection} from "typeorm";
@@ -164,15 +173,18 @@ export class UserController {
 }
 ```
 
-You can also use `ConnectionManager#get` to get a connection,
-but using `getConnection()` is enough in most cases.
+你也可以使用 `ConnectionManager#get` 获取一个连接，
 
-Using connection you work with your entities, particularly using `EntityManager` and `Repository`.
-For more information about them see [Entity Manager and Repository](working-with-entity-manager.md).
+但是在大多数情况下使用 `getConnection()` 就足够了。
 
-But generally, you don't use `Connection` much. 
-Most of the time you only create a connection and use `getRepository()` and `getManager()` to access your connection's manager and repositories without directly using connection object.
-For example:
+连接与实体一起使用，特别是使用 `EntityManager` 和 `Repository`。
+
+了解更多有关他们的信息请看 [实体管理器和存储库](working-with-entity-manager.md)。
+
+但是通常来说，你不会使用太多 `Connection`。
+
+大多数情况下，你只创建一个连接并使用 `getRepository()` 和 `getManager()`  来访问连接管理器和存储库，而无需直接使用连接对象。
+例如：
 
 ```typescript
 import {getManager, getRepository} from "typeorm";

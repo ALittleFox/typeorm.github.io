@@ -1,6 +1,6 @@
 # 连接选项
 
-* [What is `ConnectionOptions`](#what-is-connectionoptions)
+* [什么是`ConnectionOptions`](#what-is-connectionoptions)
 * [Common connection options](#common-connection-options)
 * [`mysql` / `mariadb` connection options](#mysql--mariadb-connection-options)
 * [`postgres` connection options](#postgres-connection-options)
@@ -12,102 +12,96 @@
 * [`sql.js` connection options](#sqljs-connection-options)
 * [Connection options example](#connection-options-example)
     
-## What is `ConnectionOptions`
+## 什么是`ConnectionOptions`
 
-Connection options is a connection configuration object you pass to `createConnection`
- or create in `ormconfig` file. Different drivers have their own specific connection options.
+连接选项是您传递给`createConnection`或在`ormconfig`文件中创建的连接配置对象。不同的数据库驱动程序有它们自己的特定连接选项。
 
-## Common connection options
+## 通用连接选项
 
-* `type` - Database type. You must specify what database engine you use.
- Possible values are "mysql", "postgres", "mariadb", "sqlite", "cordova", "oracle", "mssql", "websql", "mongodb", "sqljs". 
- This option is required.
+* `type` - 数据库类型。你必须申明你使用的数据库类型。可选的值有`mysql`、`postgres`、`mariadb`、`sqlite`、`cordova`、`oracle`、`mssql`、`websql`、`mongodb`、`sqljs`。这个选项是必须的。
 
-* `name` - Connection name. You'll use it to get connection you need using `getConnection(name: string)` 
-or `ConnectionManager.get(name: string)`. 
-Connection names for different connections cannot be same - they all must be unique.
-If connection name is not given then it will be called "default".
+* `name` - 连接名。你将使用 `getConnection(name: string)` 或 `ConnectionManager.get(name: string)` 来获取你需要使用的连接。
+不同连接的连接名称不能相同 — 它们都必须是惟一的。
+如果没有连接名称，那么它将被称为`default`。
 
-* `extra` - Extra connection options to be passed to the underlying driver. 
-Use it if you want to pass extra settings to underlying database driver.
+* `extra` - 要传递给底层数据库驱动程序的额外连接选项。
+如果您想要将额外的选项传递给底层数据库驱动程序，请使用它。
 
-* `entities` - Entities to be loaded and used for this connection.
-Accepts both entity classes and directories paths to load from.
-Directories support glob patterns.
-Example: `entities: [Post, Category, "entity/*.js", "modules/**/entity/*.js"]`.
-Learn more about [Entities](./entities.md).
+* `entities` - 要加载和用于此连接的实体。
+支持通过实体类名和目录路径来加载。
+目录路径支持 `glob` 模式。
+例如：`entities: [Post, Category, "entity/*.js", "modules/**/entity/*.js"]`。
+了解更多关于[实体](./entities.md)。
 
-* `subscribers` - Subscribers to be loaded and used for this connection.
-Accepts both entity classes and directories to load from.
-Directories support glob patterns.
-Example: `subscribers: [PostSubscriber, AppSubscriber, "subscriber/*.js", "modules/**/subscriber/*.js"]`.
-Learn more about [Subscribers](listeners-and-subscribers.md).
+* `subscribers` - 要加载和用于此连接的订阅者。
+支持通过类名和目录路径来加载。
+目录路径支持 `glob` 模式。
+例如：`subscribers: [PostSubscriber, AppSubscriber, "subscriber/*.js", "modules/**/subscriber/*.js"]`。
+了解更多关于[订阅者](listeners-and-subscribers.md)。
 
-* `entitySchemas` - Entity schemas to be loaded and used for this connection.
-Accepts both entity schema classes and directories to load from.
-Directories support glob patterns.
-Example: `entitySchemas: [PostSchema, CategorySchema, "entity-schema/*.json", "modules/**/entity-schema/*.json"]`.
-Learn more about [Entity Schemas](./schema-in-files.md).
+* `entitySchemas` - 要加载和用于此连接的实体模式。
+支持通过实体模式类名和目录路径来加载。
+目录路径支持 `glob` 模式。
+例如：`entitySchemas: [PostSchema, CategorySchema, "entity-schema/*.json", "modules/**/entity-schema/*.json"]`。
+了解更多关于[实体模式](./schema-in-files.md)。
 
-* `migrations` - Migrations to be loaded and used for this connection.
-Accepts both migration classes and directories to load from.
-Directories support glob patterns.
-Example: `migrations: [FirstMigration, SecondMigration, "migration/*.js", "modules/**/migration/*.js"]`.
-Learn more about [Migrations](./migrations.md).
+* `migrations` - 要加载并用于此连接的数据库迁移。
+支持通过迁移类名和目录路径来加载。
+目录路径支持 `glob` 模式。
+例如：`migrations: [FirstMigration, SecondMigration, "migration/*.js", "modules/**/migration/*.js"]`。
+了解更多关于[迁移](./migrations.md)。
 
-* `logging` - Indicates if logging is enabled or not. 
-If set to `true` then query and error logging will be enabled.
-You can also specify different types of logging to be enabled, for example `["query", "error", "schema"]`.
-Learn more about [Logging](./logging.md).
+* `logging` - 是否启用日志记录。
+设置为 `true` 将开启查询和错误日志。
+你还可以指定启用不同类型的日志记录，例如：`["query", "error", "schema"]`.
+了解更多关于[日志](./logging.md).
 
-* `logger` - Logger to be used for logging purposes. Possible values are "advanced-console", "simple-console" and "file". 
-Default is "advanced-console". You can also specify a logger class that implements `Logger` interface.
-Learn more about [Logging](./logging.md).
+* `logger` - 用于日志记录的日志记录器。 可以选值有 `advanced-console`、`simple-console`和`file`。
+默认是`advanced-console`。你也可以通过实现`Logger`接口来指定自己的日志记录类。
+了解更多关于[日志](./logging.md)。
 
-* `maxQueryExecutionTime` - If query execution time exceed this given max execution time (in milliseconds)
-then logger will log this query.
+* `maxQueryExecutionTime` - 如果查询执行时间超过给定的最大执行时间(以毫秒为单位)，那么日志记录器将记录这个查询。
 
-* `namingStrategy` - Naming strategy to be used to name tables and columns in the database.
-Learn more about [Naming strategies](./naming-strategy.md).
+* `namingStrategy` - 用于在数据库中命名表和列的命名策略。
+了解更多关于[命名策略](./naming-strategy.md).
 
-* `entityPrefix` - Prefixes with the given string all tables (or collections) on this database connection.
+* `entityPrefix` - 此数据库连接的所有表(或集合)名称的前缀。
 
-* `dropSchema` - Drops the schema each time connection is being established.
-Be careful with this option and don't use this in production - otherwise you'll lose all production data.
-This option is useful during debug and development.
+* `dropSchema` - 每次建立连接时删除模式。
+小心这个选项，不要在生产中使用它 — 否则你将失去所有的生产数据。
+此选项在调试和开发期间非常有用。
 
-* `synchronize` - Indicates if database schema should be auto created on every application launch.
- Be careful with this option and don't use this in production - otherwise you can lose production data.
- This option is useful during debug and development.
- As an alternative to it, you can use CLI and run schema:sync command.
- Note that for MongoDB database it does not create schema, because MongoDB is schemaless.
- Instead, it syncs just by creating indices.
+* `synchronize` - 是否应该在每个应用程序启动时自动创建数据库模式。
+小心这个选项，不要在生产中使用它 — 否则你将失去所有的生产数据。
+此选项在调试和开发期间非常有用。
+作为替代方案，你可以通过命令行工具执行 `schema:sync` 命令来同步。
+注意，对于MongoDB数据库，它不创建模式，因为MongoDB是无模式的。
+相反，它只是通过创建索引来实现同步。
 
-* `migrationsRun` - Indicates if migrations should be auto run on every application launch.
-As an alternative, you can use CLI and run migrations:run command.
+* `migrationsRun` - 是否应该在每次应用程序启动时自动运行迁移。
+作为替代方案，你可以通过命令行工具执行 `migrations:run` 命令。
 
-* `cli.entitiesDir` - Directory where entities should be created by default by CLI.
+* `cli.entitiesDir` - 通过命令行工具创建的实体的存放目录。
 
-* `cli.migrationsDir` - Directory where migrations should be created by default by CLI.
+* `cli.migrationsDir` - 通过命令行工具创建的迁移的存放目录。
 
-* `cli.subscribersDir` - Directory where subscribers should be created by default by CLI.
+* `cli.subscribersDir` - 通过命令行工具创建的订阅者的存放目录。
 
-## `mysql` / `mariadb` connection options
+## `mysql` / `mariadb` 连接选项
 
-* `url` - Connection url where perform connection to.
+* `url` - 数据库连接地址。
 
-* `host` - Database host.
+* `host` - 数据库主机。
 
-* `port` - Database host port. Default mysql port is `3306`.
+* `port` - 数据库主机端口。 默认 `3306`.
 
-* `username` - Database username.
+* `username` - 数据库用户名。
 
-* `password` - Database password.
+* `password` - 数据库密码
 
-* `database` - Database name.
+* `database` - 数据库名
 
-* `charset` - The charset for the connection. This is called "collation" in the SQL-level of MySQL 
-(like utf8_general_ci). If a SQL-level charset is specified (like utf8mb4) then the default collation for that charset is used. (Default: `UTF8_GENERAL_CI`).
+* `charset` - 连接字符集。在MySQL中称为字符集校对规则（像`utf8_general_ci`）。如果设置了字符集（如`utf8mb4`），那么就会使用那个字符集默认的校对规则。（默认：`UTF8_GENERAL_CI`）。
 
 * `timezone` - the timezone configured on the MySQL server. This is used to typecast server date/time 
 values to JavaScript Date object and vice versa. This can be `local`, `Z`, or an offset in the form 

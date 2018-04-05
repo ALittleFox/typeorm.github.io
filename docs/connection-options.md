@@ -1,16 +1,16 @@
 # 连接选项
 
 * [什么是`ConnectionOptions`](#what-is-connectionoptions)
-* [Common connection options](#common-connection-options)
-* [`mysql` / `mariadb` connection options](#mysql--mariadb-connection-options)
-* [`postgres` connection options](#postgres-connection-options)
-* [`sqlite` connection options](#sqlite-connection-options)
-* [`websql` connection options](#websql-connection-options)
-* [`cordova` connection options](#cordova-connection-options)
-* [`mssql` connection options](#mssql-connection-options)
-* [`mongodb` connection options](#mongodb-connection-options)
-* [`sql.js` connection options](#sqljs-connection-options)
-* [Connection options example](#connection-options-example)
+* [通用连接选项](#common-connection-options)
+* [`mysql` / `mariadb` 连接选项](#mysql--mariadb-connection-options)
+* [`postgres` 连接选项](#postgres-connection-options)
+* [`sqlite` 连接选项](#sqlite-connection-options)
+* [`websql` 连接选项](#websql-connection-options)
+* [`cordova` 连接选项](#cordova-connection-options)
+* [`mssql` 连接选项](#mssql-connection-options)
+* [`mongodb` 连接选项](#mongodb-connection-options)
+* [`sql.js` 连接选项](#sqljs-connection-options)
+* [连接选项示例](#connection-options-example)
     
 ## 什么是`ConnectionOptions`
 
@@ -103,36 +103,23 @@
 
 * `charset` - 连接字符集。在MySQL中称为字符集校对规则（像`utf8_general_ci`）。如果设置了字符集（如`utf8mb4`），那么就会使用那个字符集默认的校对规则。（默认：`UTF8_GENERAL_CI`）。
 
-* `timezone` - the timezone configured on the MySQL server. This is used to typecast server date/time 
-values to JavaScript Date object and vice versa. This can be `local`, `Z`, or an offset in the form 
-`+HH:MM` or `-HH:MM`. (Default: `local`)
+* `timezone` - MySQL服务器的时区。这用于将服务器日期/时间值与JavaScript日期对象互相匹配。可以是`local`、`Z`或者是`+HH:MM` 或 `-HH:MM`格式的偏移量。（默认：`local`）
 
-* `connectTimeout` - The milliseconds before a timeout occurs during the initial connection to the MySQL server.
- (Default: `10000`)
+* `connectTimeout` - MySQL服务器的连接超时时间。（默认：`10000`）
  
-* `insecureAuth` - Allow connecting to MySQL instances that ask for the old (insecure) authentication method. 
-(Default: `false`)
+* `insecureAuth` - 允许通过旧（不安全）的身份验证方法连接到MySQL实例。（默认：`false`）
  
-* `supportBigNumbers` - When dealing with big numbers (`BIGINT` and `DECIMAL` columns) in the database, 
-you should enable this option (Default: `false`)
+* `supportBigNumbers` - 处理数据库里面的大型数字（`BIGINT` 和 `DECIMAL` 列），您应该启用这个选项。（默认：`false`）
  
-* `bigNumberStrings` - Enabling both `supportBigNumbers` and `bigNumberStrings` forces big numbers 
-(`BIGINT` and `DECIMAL` columns) to be always returned as JavaScript String objects (Default: `false`). 
-Enabling `supportBigNumbers` but leaving `bigNumberStrings` disabled will return big numbers as String 
-objects only when they cannot be accurately represented with 
-[JavaScript Number objects](http://ecma262-5.com/ELS5_HTML.htm#Section_8.5) 
-(which happens when they exceed the `[-2^53, +2^53]` range), otherwise they will be returned as 
-Number objects. This option is ignored if `supportBigNumbers` is disabled.
+* `bigNumberStrings` - 同时启用 `supportBigNumbers` 和 `bigNumberStrings` 可以强制将大数字（`BIGINT`和`DECIMAL`列）作为JavaScript字符串对象返回（默认为`false`）。
+只启用 `supportBigNumbers` 但禁用 `bigNumberStrings` 只会在大型数字不能被准确地表示出来[JavaScript 数字对象](http://ecma262-5.com/ELS5_HTML.htm#Section_8.5)（只有当它们超出`[-2^53, +2^53]`范围后才会发生）时才会被转成字符串对象，否则它们将作为数字对象返回。如果`supportBigNumbers`被禁用，此选项将被忽略。
 
-* `dateStrings` - Force date types (`TIMESTAMP`, `DATETIME`, `DATE`) to be returned as strings rather than 
-inflated into JavaScript Date objects. Can be true/false or an array of type names to keep as strings. 
-(Default: `false`)
+* `dateStrings` - 强制日期类型（`TIMESTAMP`、`DATETIME `、`date`）作为字符串返回，而不是转换成到JavaScript日期对象。 可以是 `true` 或 `false` 或者是一个需要作为字符串的类型名称数组。（默认：`false`）
 
-* `debug` - Prints protocol details to stdout. Can be true/false or an array of packet type names that 
-should be printed. (Default: `false`)
+* `debug` - 打印连接详细信息到标准输出。可以是 `true` 或 `false` 或者是一个需要打印的包类型名称的数组。（默认：`false`）
 
-* `trace` - Generates stack traces on Error to include call site of library entrance ("long stack traces"). 
-Slight performance penalty for most calls. (Default: `true`)
+* `trace` - 在发生错误的时候生成堆栈跟踪，包括库入口的调用位置。（“长堆栈跟踪”）。 
+对于大多数请求都会有轻微的性能损失。（默认：`true`）
 
 * `multipleStatements` - Allow multiple mysql statements per query. Be careful with this, it could increase the scope 
 of SQL injection attacks. (Default: `false`)

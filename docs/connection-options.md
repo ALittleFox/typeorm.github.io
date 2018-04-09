@@ -93,13 +93,13 @@
 
 * `host` - 数据库主机。
 
-* `port` - 数据库主机端口。 默认 `3306`.
+* `port` - 数据库主机端口。 mysql默认端口是 `3306`。
 
 * `username` - 数据库用户名。
 
-* `password` - 数据库密码
+* `password` - 数据库用户密码。
 
-* `database` - 数据库名
+* `database` - 数据库名。
 
 * `charset` - 连接字符集。在MySQL中称为字符集校对规则（像`utf8_general_ci`）。如果设置了字符集（如`utf8mb4`），那么就会使用那个字符集默认的校对规则。（默认：`UTF8_GENERAL_CI`）。
 
@@ -121,96 +121,88 @@
 * `trace` - 在发生错误的时候生成堆栈跟踪，包括库入口的调用位置。（“长堆栈跟踪”）。 
 对于大多数请求都会有轻微的性能损失。（默认：`true`）
 
-* `multipleStatements` - Allow multiple mysql statements per query. Be careful with this, it could increase the scope 
-of SQL injection attacks. (Default: `false`)
+* `multipleStatements` - 允许每个查询使用多个mysql语句。要小心，它可能会增加SQL注入攻击的范围。（默认：`false`）
 
-* `flags` - List of connection flags to use other than the default ones. It is also possible to blacklist default ones.
- For more information, check [Connection Flags](https://github.com/mysqljs/mysql#connection-flags).
+* `flags` - 要使用的连接标志的列表，而不是使用默认的连接标志。还可以将默认连接标志列入黑名单。
+更多信息请查看[Connection Flags](https://github.com/mysqljs/mysql#connection-flags)。
  
-* `ssl` -  object with ssl parameters or a string containing the name of ssl profile. 
-See [SSL options](https://github.com/mysqljs/mysql#ssl-options).
+* `ssl` - 带有ssl参数的对象或者包含ssl配置文件名称的字符串。
+请看 [SSL options](https://github.com/mysqljs/mysql#ssl-options)。
 
-## `postgres` connection options
+## `postgres` 连接选项
 
-* `url` - Connection url where perform connection to.
+* `url` - 数据库连接地址。
 
-* `host` - Database host.
+* `host` - 数据库主机。
 
-* `port` - Database host port. Default postgres port is `5432`.
+* `port` - 数据库主机端口。 postgres默认端口是 `5432`。
 
-* `username` - Database username.
+* `username` - 数据库用户名。
 
-* `password` - Database password.
+* `password` - 数据库用户密码。
 
-* `database` - Database name.
+* `database` - 数据库名。
 
-* `schema` - Schema name. Default is "public".
+* `schema` - 模式名称。默认是 “public”。
 
-* `ssl` - Object with ssl parameters. See [TLS/SSL](https://node-postgres.com/features/ssl).
+* `ssl` - 带有ssl参数的对象。请看 [TLS/SSL](https://node-postgres.com/features/ssl)。
 
-## `sqlite` connection options
+## `sqlite` 连接选项
 
-* `database` - Database path. For example "./mydb.sql"
+* `database` - 数据库路径。例如 “./mydb.sql”。
 
-## `websql` connection options
+## `websql` 连接选项
 
-* `database` - Database name
+* `database` - 数据库名
 
-* `version` - Version string of the database
+* `version` - 数据库的版本字符串
 
-* `description` - Database description
+* `description` - 数据库描述
 
-* `size` - The size of the database
+* `size` - 数据库大小
 
-## `cordova` connection options
+## `cordova` 连接选项
 
-* `database` - Database name
+* `database` - 数据库名
 
-* `location` - Where to save the database. See [cordova-sqlite-storage](https://github.com/litehelpers/Cordova-sqlite-storage#opening-a-database) for options.
+* `location` - 数据库保存路径。 选项请看 [cordova-sqlite-storage](https://github.com/litehelpers/Cordova-sqlite-storage#opening-a-database)。
 
-## `mssql` connection options
+## `mssql` 连接选项
 
-* `url` - Connection url where perform connection to.
+* `url` - 数据库连接地址。
 
-* `host` - Database host.
+* `host` - 数据库主机名。
 
-* `port` - Database host port. Default mssql port is `1433`.
+* `port` - 数据库主机端口。mssql 默认端口是 `1433`。
 
-* `username` - Database username.
+* `username` - 数据库用户名。
 
-* `password` - Database password.
+* `password` - 数据库用户密码。
 
-* `database` - Database name.
+* `database` - 数据库名。
 
-* `schema` - Schema name. Default is "public".
+* `schema` - 模式名称。默认是 “public”。
 
-* `domain` - Once you set domain, the driver will connect to SQL Server using domain login.
+* `domain` - 一旦设置了域名，驱动程序将使用域名登录连接到SQL服务器。
 
-* `connectionTimeout` - Connection timeout in ms (default: `15000`).
+* `connectionTimeout` - 连接超时的毫秒数（默认：`15000`）。
 
-* `requestTimeout` - Request timeout in ms (default: `15000`). NOTE: msnodesqlv8 driver doesn't support
- timeouts < 1 second.
+* `requestTimeout` - 请求超时的毫秒数（默认：`15000`）。 注意：msnodesqlv8 驱动不支持超时时间小于1秒。
 
-* `stream` - Stream recordsets/rows instead of returning them all at once as an argument of callback (default: `false`).
- You can also enable streaming for each request independently (`request.stream = true`). Always set to `true` if you plan to
- work with a large amount of rows.
+* `stream` - 流式返回记录集或行而不是一次性返回（默认：`false`）。
+你还可以单独为每个请求启用流式返回（`request.stream = true`）。 如果返回的行比较大，那最好一直设置为 `true`。
  
-* `pool.max` - The maximum number of connections there can be in the pool (default: `10`).
+* `pool.max` - 在连接池中可以有的最大连接数。（默认`10`）。
 
-* `pool.min` - The minimum of connections there can be in the pool (default: `0`).
+* `pool.min` - 在连接池中可以有的最小连接数。（默认`0`）。
 
-* `pool.maxWaitingClients` - maximum number of queued requests allowed, additional acquire calls will be callback with
- an err in a future cycle of the event loop.
+* `pool.maxWaitingClients` - 请求队列的最大允许量。超出的请求将会接下来的事件循环回调中返回一个错误。
  
-* `pool.testOnBorrow` -  should the pool validate resources before giving them to clients. Requires that either
-  `factory.validate` or `factory.validateAsync` to be specified.
+* `pool.testOnBorrow` - 在将资源返回给客户端之前，连接池是否应该验证资源? 需要设置`factory.validate` 或 `factory.validateAsync`。
   
-* `pool.acquireTimeoutMillis` - max milliseconds an `acquire` call will wait for a resource before timing out.
- (default no limit), if supplied should non-zero positive integer.
+* `pool.acquireTimeoutMillis` - `acquire` 请求等待资源返回的最大超时毫秒数（默认无限制），如果设置必须是非零正整数。
  
-* `pool.fifo` - if true the oldest resources will be first to be allocated. If false the most recently released resources
- will be the first to be allocated. This in effect turns the pool's behaviour from a queue into a stack. boolean,
- (default `true`).
+* `pool.fifo` - 如果为`true`，最老的资源将优先被分配。如果为`false`，最新的资源将优先被分配。这实际上将连接池的行为从队列变为堆栈。（默认 `true`）。
  
 * `pool.priorityRange` - int between 1 and x - if set, borrowers can specify their relative priority in the queue if no
  resources are available. see example. (default `1`).
@@ -316,19 +308,19 @@ See [SSL options](https://github.com/mysqljs/mysql#ssl-options).
 * `options.debug.token` - A boolean, controlling whether `debug` events will be emitted with text describing token stream
  tokens (default: `false`).
 
-## `mongodb` connection options
+## `mongodb` 连接选项
 
-* `url` - Connection url where perform connection to.
+* `url` - 数据库连接地址。
 
-* `host` - Database host.
+* `host` - 数据库主机名。
 
-* `port` - Database host port. Default mongodb port is `27017`.
+* `port` - 数据库主机端口。mongodb默认端口是 `27017`。
 
-* `database` - Database name.
+* `database` - 数据库名。
 
-* `poolSize` - Set the maximum pool size for each individual server or proxy connection.
+* `poolSize` - 为每个单独的服务器或代理连接设置最大连接池大小。
 
-* `ssl` - Use ssl connection (needs to have a mongod server with ssl support). Default: `false`.
+* `ssl` - 使用ssl连接（需要mongod服务器支持ssl）。默认 `false`。
 
 * `sslValidate` - Validate mongod server certificate against ca (needs to have a mongod server with ssl support,
  2.4 or higher). Default: `true`.
@@ -427,19 +419,19 @@ See [SSL options](https://github.com/mysqljs/mysql#ssl-options).
 
 * `authMechanism` - Sets the authentication mechanism that MongoDB will use to authenticate the connection.
 
-## `sql.js` connection options
+## `sql.js` 连接选项
 
-* `database`: The raw UInt8Array database that should be imported.
+* `database`：应该导入的原始UInt8Array数据库。
 
-* `autoSave`: Whether or not autoSave should be disabled. If set to true the database will be saved to the given file location (Node.js) or LocalStorage element (browser) when a change happens and `location` is specified. Otherwise `autoSaveCallback` can be used.
+* `autoSave`：是否开启autoSave。如果设置为 `true`，当对数据库更改后会自动保存到给定的`location`文件路径（Node.js）或者LocalStorage元素（浏览器）。并且会调用 `autoSaveCallback`函数。
 
-* `autoSaveCallback`: A function that get's called when changes to the database are made and `autoSave` is enabled. The function gets a `UInt8Array` that represents the database.
+* `autoSaveCallback`：启用 `autoSave` 后对数据库进行更改时会调用的函数。函数接受一个表示数据库的 `UInt8Array`。
 
-* `location`: The file location to load and save the database to.
+* `location`：要加载和保存数据库的文件路径。
 
-## Connection options example
+## 连接选项示例
 
-Here is a small example of connection options for mysql:
+下面是mysql连接选项的一个小示例：
 
 ```typescript
 {

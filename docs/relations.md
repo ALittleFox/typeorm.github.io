@@ -22,10 +22,7 @@
 你可以为关系指定以下选项
 
 * `eager: boolean` - 如果设置为真，当使用`find*` 方法时关系将和主实体一同被载入。如果使用`QueryBuilder`，渴求式关系将被禁用与此同时你必须使用`leftJoinAndSelect` 来载入它。
-* `cascadeInsert: boolean` - 如果设置为真, 关联对象将被自动插入数据库如果它还不存在于数据库的话。
-* `cascadeUpdate: boolean` - 如果设置为真, 关联对象将在实体保存时被更新。
-* `cascadeRemove: boolean` - 如果设置为真，关联对象将在实体保存且没有与之关联对象时从数据库中移除。
-* `cascadeAll: boolean` - 一次性设置`cascadeInsert`, `cascadeUpdate`, `cascadeRemove`。 
+* `cascade: boolean` - 如果设置为真, 关联对象将被自动插入或者更新。 
 * `onDelete: "RESTRICT"|"CASCADE"|"SET NULL"` - 指定引用对象被删除时外键的行为。
 * `primary: boolean` - 表示关系中该列是否为主键列。
 * `nullable: boolean` - 表示关系中该列是否允许为空。 默认允许为空。如果你在关系中使用了级联那么不推荐将该选项设置为假。
@@ -90,11 +87,7 @@ question.categories = [category1, category2];
 await connection.manager.save(question);
 ```
 
-正如这个例子所展示的我们没有调用 `category1` 和 `category2`的`save`方法。它们将自动被插入因为我们将`cascadeInsert`设置为真了。
-
-使用 `cascadeUpdate`时，实体被保存的时候关系中的每一个对象都被会调用`save`方法。这意味着关系中的每个实体都会自动的改变如果它们存在于数据库之中。
-
-当使用 `cascadeRemove`时，关系中每一个消失的对象都会被调用`remove`函数。这个方法的一个好例子是`Question`和`Answer`实体间的关系。当你删除一个拥有`answers: Answer[]` 的`Question`关系时你需要同时删除数据库中的所有回答。
+正如这个例子所展示的我们没有调用 `category1` 和 `category2`的`save`方法。它们将自动被插入因为我们将`cascade`设置为真了。
 
 记住 - 能力越大责任越大。级联看起来是一个又好又简单的方式来与关系一起作用，但是在一些意料之外的对象被存储到数据库时它也会带来一些bug和其他安全问题。并且，它提供了一个不明确的将新对象存储进数据库的方式。
 

@@ -19,6 +19,6 @@ await userRepository.save(user);
 有3中类型的实体库:
 * `Repository` - 适用于任何实体的常规存储库
 * `TreeRepository` - 存储库, 继承 `Repository` 适用于树形实体 
-（和通过`@ClosureEntity`装饰实体类似）。 
+（和通过`@Tree`装饰实体类似）。 
 具有特殊的方法来适配树形结构。
 * `MongoRepository` - 具有特殊函数仅用来适配MongoDB的存储库。

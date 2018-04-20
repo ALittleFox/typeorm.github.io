@@ -47,6 +47,10 @@ const Links = [
                 url: "tree-entities",
                 name: "树形实体"
             },
+            {
+                url: "separating-entity-definition",
+                name: "分离的实体定义"
+            }
         ]
     },
     {

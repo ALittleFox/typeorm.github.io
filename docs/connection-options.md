@@ -14,11 +14,11 @@
     
 ## 什么是`ConnectionOptions`
 
-连接选项是您传递给`createConnection`或在`ormconfig`文件中创建的连接配置对象。不同的数据库驱动程序有它们自己的特定连接选项。
+连接选项是您传递给`createConnection`或在`ormconfig`文件中创建的连接配置。不同的数据库有它们自己的特定连接选项。
 
 ## 通用连接选项
 
-* `type` - 数据库类型。你必须申明你使用的数据库类型。可选的值有`mysql`、`postgres`、`mariadb`、`sqlite`、`cordova`、`oracle`、`mssql`、`websql`、`mongodb`、`sqljs`。这个选项是必须的。
+* `type` - 数据库类型。你必须申明你使用的数据库类型。可选的值有`mysql`、`postgres`、`mariadb`、`sqlite`、`cordova`、`oracle`、`mssql`、`websql`、`mongodb`、`sqljs`。这个选项是**必须**的。
 
 * `name` - 连接名。你将使用 `getConnection(name: string)` 或 `ConnectionManager.get(name: string)` 来获取你需要使用的连接。
 不同连接的连接名称不能相同 — 它们都必须是惟一的。
@@ -80,6 +80,11 @@
 
 * `migrationsRun` - 是否应该在每次应用程序启动时自动运行迁移。
 作为替代方案，你可以通过命令行工具执行 `migrations:run` 命令。
+
+* `migrationsTableName` - 数据库中将要执行信息的迁移的表的名称。默认表名称是 `migrations`。
+
+* `cache` - 开启实体结果缓存。你也可以在这里配置缓存类型和其它缓存选项。[这里](./caching.md)
+查看更多关于缓存的信息。
 
 * `cli.entitiesDir` - 通过命令行工具创建的实体的存放目录。
 

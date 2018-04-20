@@ -6,7 +6,7 @@ TypeORM支持邻接表和闭包表模式存储树形结构。
 
 * [邻接表](#adjacency-list)
 * [嵌套集合](#nested-set)
-* [物化路径（也叫路径枚举）](#nested-set-aka-path-enumeration)
+* [物化路径（也叫路径枚举）](#materialized-path-aka-path-enumeration)
 * [闭包表](#closure-table)
 * [使用树形实体](#working-with-tree-entities)
 

@@ -1,11 +1,12 @@
 # 使用 ormconfig.json
 
 * [从配置文件创建一个新的连接](#creating-a-new-connection-from-the-configuration-file)
-* [从 `ormconfig.json` 获取](#loading-from-ormconfigjson)
-* [从 `ormconfig.js` 获取](#loading-from-ormconfigjs)
-* [从 `ormconfig.env` 或环境变量获取](#loading-from-ormconfigenv-or-from-environment-variables)
-* [从 `ormconfig.yml` 获取](#loading-from-ormconfigyml)
-* [从 `ormconfig.xml` 获取](#loading-from-ormconfigxml)
+* [使用 `ormconfig.json`](#loading-from-ormconfigjson)
+* [使用 `ormconfig.js`](#loading-from-ormconfigjs)
+* [使用环境变量](#loading-from-ormconfigenv-or-from-environment-variables)
+* [使用 `ormconfig.yml`](#loading-from-ormconfigyml)
+* [使用 `ormconfig.xml`](#loading-from-ormconfigxml)
+* [覆盖在ormconfig中定义的选项](#overriding-options-defined-in-ormconfig)
 
 ## 从配置文件创建一个新的连接
 
@@ -16,13 +17,15 @@ TypeORM 支持多重配置资源。
 把你的配置放在那儿，然后在你的应用调用 `createConnection()` ，不用传任何配置。
 
 ```typescript
-import {createConnection, Connection} from "typeorm";
+import {createConnection} from "typeorm";
 
 // createConnection method will automatically read connection options from your ormconfig file
-const connection: Connection = await createConnection();
+const connection = await createConnection();
 ```
+
+支持的 ormconfig 文件格式有： `.json`, `.js`, `.env`, `.yml` 和 `.xml`。
  
-## 从 `ormconfig.json` 获取
+## 使用 `ormconfig.json`
 
 在你的项目根目录（靠近 `package.json`）创建 `ormconfig.json`。 内容如下:
 
@@ -37,8 +40,7 @@ const connection: Connection = await createConnection();
 }
 ```
 
-你可以指定其它 `ConnectionOptions` 里面的选项。
-了解更多 [ConnectionOptions](./connection-options.md).
+你可以指定其它 [`ConnectionOptions`](./connection-options.md) 里面的选项。
 
 如果您想创建多个连接，那么只需把它变成一个数组：
 
@@ -62,7 +64,7 @@ const connection: Connection = await createConnection();
 }]
 ```
 
-## 从 `ormconfig.js` 获取
+## 使用 `ormconfig.js`
 
 在你的项目根目录（靠近 `package.json`）创建 `ormconfig.js`。内容如下:
 
@@ -77,12 +79,12 @@ module.exports = {
 }
 ```
 
-你可以指定其它 `ConnectionOptions` 里面的选项。
+你可以指定其它 [`ConnectionOptions`](./connection-options.md) 里面的选项。
 如果您想创建多个连接，那么只需把它变成一个数组，并返回这个数组。
 
-## 从 `ormconfig.env` 或环境变量获取
+## 使用 `ormconfig.env`
 
-在你的项目根目录（靠近 `package.json`）创建 `ormconfig.env`。 内容如下:
+在你的项目根目录（靠近 `package.json`）创建 `.env` 或 `ormconfig.env`。 内容如下:
 
 ```ini
 TYPEORM_CONNECTION = mysql
@@ -129,7 +131,7 @@ TYPEORM_ENTITIES = entity/.*js,modules/**/entity/.*js
 使用 `env` 文件或者环境变量你不能定义多个连接。
 如果你的应用有多个连接请使用其它配置存储格式。
 
-## 从 `ormconfig.yml` 获取
+## 使用 `ormconfig.yml`
 
 在你的项目根目录（靠近 `package.json`）创建 `ormconfig.yml`。 内容如下:
 
@@ -151,7 +153,7 @@ second-connection: # other connection
 
 你可以使用任何可用的连接选项。
 
-## 从 `ormconfig.xml` 获取
+## 使用 `ormconfig.xml`
 
 在你的项目根目录（靠近 `package.json`）创建 `ormconfig.xml`。 内容如下:
 
@@ -177,3 +179,21 @@ second-connection: # other connection
 ```
 
 你可以使用任何可用的连接选项。
+
+## 覆盖在ormconfig中定义的选项
+
+有时你可能想覆盖 `ormconfig` 文件中定义的选项，或者你想在你的配置项中加入一些 TypeScript / JavaScript 的逻辑。
+
+在这种情况下，你可以从 `ormconfig` 文件加载选项，获取到 `ConnectionOptions`，然后你就可以在 将它传递给`createConnection`函数之前修改这些选项了：
+
+```typescript
+// read connection options from ormconfig file (or ENV variables)
+const connectionOptions = await getConnectionOptions();
+
+// do something with connectionOptions,
+// for example append a custom naming strategy or a custom logger
+Object.assign(connectionOptions, { namingStrategy: new MyNamingStrategy() });
+
+// create a connection using modified connection options
+const connection = await createConnection(connectionOptions);
+```

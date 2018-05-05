@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://typeorm.io/">
+  <a href="http://typeorm.io/" target="_blank" rel="noopener">
     <img src="https://github.com/typeorm/typeorm/raw/master/resources/logo_big.png" width="492" height="228">
   </a>
   <br>
@@ -20,7 +20,7 @@
   <br>
 </div>
 
-TypeORM是一个[ORM](https://en.wikipedia.org/wiki/Object-relational_mapping)框架，它可以运行在NodeJS、浏览器、Cordova、PhoneGap和Ionic平台上，可以与TypeScript和JavaScript (ES5, ES6, ES7)一起使用。
+TypeORM是一个[ORM](https://en.wikipedia.org/wiki/Object-relational_mapping)框架，它可以运行在NodeJS、浏览器、Cordova、PhoneGap、Ionic、React Native和Electron平台上，可以与TypeScript和JavaScript (ES5, ES6, ES7)一起使用。
 它的目标是始终支持最新的JavaScript特性并提供额外的特性以帮助你开发任何使用数据库的应用程序 —— 不管是只有几张表的小型应用还是拥有多数据库的大型企业应用。
 
 不同于现有的所有其他JavaScript ORM框架，TypeORM支持Active Record和Data Mapper模式，这意味着你用最有效的方法编写高质量的、松耦合的、可扩展的、可维护的应用程序。
@@ -32,7 +32,7 @@ TypeORM 的一些特性：
 - 实体和列
 - 数据库特性列类型
 - 实体管理
-- 存储库和自定义存储库
+- 存储库和自定义存储库
 - 清洁对象关系模型
 - 关联（关系）
 - 贪婪和延迟关系
@@ -41,7 +41,7 @@ TypeORM 的一些特性：
 - 级联
 - 索引
 - 事务
-- 迁移和自动迁移生成
+- 迁移和自动迁移
 - 连接池
 - 复制
 - 使用多个数据库连接
@@ -57,9 +57,9 @@ TypeORM 的一些特性：
 - 支持闭包表模式
 - 在模型或者分离的配置文件中声明模式
 - json / xml / yml / env格式的连接配置
-- 支持 MySQL / MariaDB / Postgres / SQLite / Microsoft SQL Server / Oracle / WebSQL / sql.js
+- 支持 MySQL / MariaDB / Postgres / SQLite / Microsoft SQL Server / Oracle / sql.js
 - 支持 MongoDB NoSQL 数据库
-- 在NodeJS / 浏览器 / Ionic / Cordova / Electron平台上工作
+- 在NodeJS / 浏览器 / Ionic / Cordova / React Native / Electron平台上工作
 - 支持 TypeScript 和 JavaScript
 - 产生出高性能、灵活、清洁和可维护的代码
 - 遵循所有可能的最佳实践
@@ -100,7 +100,7 @@ user.age = 25;
 await repository.save(user);
 
 const allUsers = await repository.find();
-const firstUser = await repository.findOneById(1);
+const firstUser = await repository.findOne(1);
 const timber = await repository.findOne({ firstName: "Timber", lastName: "Saw" });
 
 await repository.remove(timber);
@@ -139,11 +139,17 @@ user.age = 25;
 await user.save();
 
 const allUsers = await User.find();
-const firstUser = await User.findOneById(1);
+const firstUser = await User.findOne(1);
 const timber = await User.findOne({ firstName: "Timber", lastName: "Saw" });
 
 await timber.remove();
 ```
+
+## 请注意
+
+这个文档可能不是最新的。 
+可以去[官网](http://typeorm.io)查看最新的英文文档。
+非常欢迎你的贡献。
 
 ## 安装
 
@@ -222,7 +228,7 @@ npm install typeorm -g
 typeorm init --name MyProject --database mysql
 ```
 
-`name`即项目的名称，`database`是你将使用的数据库。数据库可以是下列值之一：`mysql`、`mariadb`、`postgres`、`sqlite`、`mssql`、`oracle`，`websql`、`mongodb`。
+`name`即项目的名称，`database`是你将使用的数据库。数据库可以是下列值之一：`mysql`、`mariadb`、`postgres`、`sqlite`、`mssql`、`oracle`、`mongodb`、`cordova`、`react-native`。
 
 该命令将在`MyProject`目录中生成一个新项目，其中包含以下文件：
 
@@ -505,9 +511,8 @@ createConnection({
 }).catch(error => console.log(error));
 ```
 
-在例子里使用的是mysql，你也可以选择其他数据库，只需要简单修改driver选项里的数据库的类型就可以了，比如： 
-mysql, mariadb, postgres, sqlite, mssql or oracle.
-同样可以修改host, port, username, password 以及database等设置.
+在例子里使用的是mysql，你也可以选择其他数据库，只需要简单修改driver选项里的数据库的类型就可以了，比如：mysql、mariadb、postgres、sqlite、mssql、oracle、cordova、react-native或mongodb
+同样可以修改host, port, username, password 以及database等设置。
 
 把Photo实体加到数据连接的实体列表中，所有需要在这个连接下使用的实体都必须加到这个列表中。
 
@@ -666,7 +671,7 @@ createConnection(/*...*/).then(async connection => {
     let allPhotos = await photoRepository.find();
     console.log("All photos from the db: ", allPhotos);
 
-    let firstPhoto = await photoRepository.findOneById(1);
+    let firstPhoto = await photoRepository.findOne(1);
     console.log("First photo from the db: ", firstPhoto);
 
     let meAndBearsPhoto = await photoRepository.findOne({ name: "Me and Bears" });
@@ -696,7 +701,7 @@ import {Photo} from "./entity/Photo";
 createConnection(/*...*/).then(async connection => {
 
     /*...*/
-    let photoToUpdate = await photoRepository.findOneById(1);
+    let photoToUpdate = await photoRepository.findOne(1);
     photoToUpdate.name = "Me, my friends and polar bears";
     await photoRepository.save(photoToUpdate);
 
@@ -717,7 +722,7 @@ import {Photo} from "./entity/Photo";
 createConnection(/*...*/).then(async connection => {
 
     /*...*/
-    let photoToRemove = await photoRepository.findOneById(1);
+    let photoToRemove = await photoRepository.findOne(1);
     await photoRepository.remove(photoToRemove);
 
 }).catch(error => console.log(error));
@@ -931,19 +936,13 @@ export class Photo {
     /// ... 其他列
 
     @OneToOne(type => PhotoMetadata, metadata => metadata.photo, {
-        cascadeInsert: true,
-        cascadeUpdate: true,
-        cascadeRemove: true
+        cascade: true,
     })
     metadata: PhotoMetadata;
 }
 ```
 
-* **cascadeInsert** - 如果表中没有关系中的metadata，则自动insert，即我们不需要再手动insert一个新的photoMetadata对象。
-* **cascadeUpdate** - 如果metadata有变化，则自动update。
-* **cascadeRemove** - 如果把photo里的metadata移除了，也就是为空，则会自动remove表中的这条metadata数据。
-
-使用cascadeInsert就可以不需要像上面那边先存photo再存metadata了。
+使用cascade就可以不需要像上面那边先存photo再存metadata了。
 现在我们来单单存photo对象，由于cascade的作用，metadata也会自动存上。
 
 ```typescript
@@ -1068,9 +1067,7 @@ export class Album {
     name: string;
 
     @ManyToMany(type => Photo, photo => photo.albums, {  // 备注: 会在下面的Photo类里添加"albums"属性
-        cascadeInsert: true, // 在添加Album时，会自动添加相册里的Photo
-        cascadeUpdate: true, // 在更新Album时，会自动更新相册里的Photo 
-        cascadeRemove: true  // 在移除Album时，会自动移除相册里的Photo
+        cascade:true
     })
     @JoinTable()
     photos: Photo[];
@@ -1086,9 +1083,7 @@ export class Photo {
     /// ... 其他列
 
     @ManyToMany(type => Album, album => album.photos, {
-        cascadeInsert: true, // 在添加Album时，会自动添加相册里的Photo
-        cascadeUpdate: true, // 在更新Album时，会自动更新相册里的Photo 
-        cascadeRemove: true  // 在移除Album时，会自动移除相册里的Photo
+        cascade: true
     })
     albums: Album[];
 }
@@ -1108,7 +1103,7 @@ export class Photo {
 记得把`Album`实体加到ConnectionOptions中:
 
 ```typescript
-const options: CreateConnectionOptions = {
+const options: ConnectionOptions = {
     // ... 其他配置
     entities: [Photo, PhotoMetadata, Author, Album]
 };
@@ -1189,14 +1184,18 @@ Photo的albums是左联接，photo的metadata是内联接。
 * [Example how to use TypeORM with TypeScript and SystemJS in Browser](https://github.com/typeorm/browser-example)
 * [Example how to use Express and TypeORM](https://github.com/typeorm/typescript-express-example)
 * [Example how to use Koa and TypeORM](https://github.com/typeorm/typescript-koa-example)
-* [Example how to use TypeORM with MongoDB](https://github.com/typeorm/typeorm-typescript-mongo-example)
+* [Example how to use TypeORM with MongoDB](https://github.com/typeorm/mongo-typescript-example)
 * [Example how to use TypeORM in a Cordova/PhoneGap app](https://github.com/typeorm/cordova-example)
 * [Example how to use TypeORM with an Ionic app](https://github.com/typeorm/ionic-example)
+* [Example how to use TypeORM with React Native](https://github.com/typeorm/react-native-example)
++* [Example how to use TypeORM with Electron using JavaScript](https://github.com/typeorm/electron-javascript-example)
++* [Example how to use TypeORM with Electron using TypeScript](https://github.com/typeorm/electron-typescript-example)
 
 ## 扩展
 
 这几个扩展可以简化TypeORM的使用，并将其与其他模块集成：
 
+* [TypeORM + GraphQL framework](http://vesper-framework.com)
 * [TypeORM integration](https://github.com/typeorm/typeorm-typedi-extensions) with [TypeDI](https://github.com/pleerock/typedi)
 * [TypeORM integration](https://github.com/typeorm/typeorm-routing-controllers-extensions) with [routing-controllers](https://github.com/pleerock/routing-controllers)
 * Models generation from existing database - [typeorm-model-generator](https://github.com/Kononnable/typeorm-model-generator)

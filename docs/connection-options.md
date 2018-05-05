@@ -14,11 +14,11 @@
     
 ## 什么是`ConnectionOptions`
 
-连接选项是您传递给`createConnection`或在`ormconfig`文件中创建的连接配置对象。不同的数据库驱动程序有它们自己的特定连接选项。
+连接选项是您传递给`createConnection`或在`ormconfig`文件中创建的连接配置。不同的数据库有它们自己的特定连接选项。
 
 ## 通用连接选项
 
-* `type` - 数据库类型。你必须申明你使用的数据库类型。可选的值有`mysql`、`postgres`、`mariadb`、`sqlite`、`cordova`、`oracle`、`mssql`、`websql`、`mongodb`、`sqljs`。这个选项是必须的。
+* `type` - 数据库类型。你必须申明你使用的数据库类型。可选的值有`mysql`、`postgres`、`mariadb`、`sqlite`、`cordova`、`oracle`、`mssql`、`websql`、`mongodb`、`sqljs`。这个选项是**必须**的。
 
 * `name` - 连接名。你将使用 `getConnection(name: string)` 或 `ConnectionManager.get(name: string)` 来获取你需要使用的连接。
 不同连接的连接名称不能相同 — 它们都必须是惟一的。
@@ -80,6 +80,11 @@
 
 * `migrationsRun` - 是否应该在每次应用程序启动时自动运行迁移。
 作为替代方案，你可以通过命令行工具执行 `migrations:run` 命令。
+
+* `migrationsTableName` - 数据库中将要执行信息的迁移的表的名称。默认表名称是 `migrations`。
+
+* `cache` - 开启实体结果缓存。你也可以在这里配置缓存类型和其它缓存选项。[这里](./caching.md)
+查看更多关于缓存的信息。
 
 * `cli.entitiesDir` - 通过命令行工具创建的实体的存放目录。
 
@@ -204,25 +209,19 @@
  
 * `pool.fifo` - 如果为`true`，最老的资源将优先被分配。如果为`false`，最新的资源将优先被分配。这实际上将连接池的行为从队列变为堆栈。（默认 `true`）。
  
-* `pool.priorityRange` - int between 1 and x - if set, borrowers can specify their relative priority in the queue if no
- resources are available. see example. (default `1`).
+* `pool.priorityRange` - 大于1的正整数。如果设置了，在没有可用资源的情况下，该值表示它们在队列中的相对优先级。（默认：`1`）。
  
-* `pool.autostart` - boolean, should the pool start creating resources etc once the constructor is called, (default `true`).
+* `pool.autostart` - 布尔类型，在调用构造函数之后，连接池是否应该立即开始创建资源等。（默认：`true`）。
 
-* `pool.victionRunIntervalMillis` - How often to run eviction checks. Default: `0` (does not run).
+* `pool.victionRunIntervalMillis` - 多久进行一次驱逐检查。 默认 `0` （不检查）。
 
-* `pool.numTestsPerRun` - Number of resources to check each eviction run. Default: `3`.
+* `pool.numTestsPerRun` -每次驱逐检查使用的资源数量。默认 `3`。
 
-* `pool.softIdleTimeoutMillis` - amount of time an object may sit idle in the pool before it is eligible for eviction by
- the idle object evictor (if any), with the extra condition that at least "min idle" object instances remain in the pool.
- Default `-1` (nothing can get evicted).
+* `pool.softIdleTimeoutMillis` - 在保证“最小空闲”的对象实例保留在池中的前提下，一个连接在池中闲置多久才有会被驱逐者（如果有的话）驱逐。默认 `-1` （不进行驱逐）。
  
-* `pool.idleTimeoutMillis` -  the minimum amount of time that an object may sit idle in the pool before it is eligible for
- eviction due to idle time. Supersedes `softIdleTimeoutMillis`. Default: `30000`.
+* `pool.idleTimeoutMillis` - 由于空闲而获得驱逐资格前，该连接可以在池中闲置的最短时间。答题 `softIdleTimeoutMillis`。 默认 `30000`。
  
-* `options.fallbackToDefaultDb` - By default, if the database requestion by `options.database` cannot be accessed, the connection
- will fail with an error. However, if `options.fallbackToDefaultDb` is set to `true`, then the user's default database will
-  be used instead (Default: `false`).
+* `options.fallbackToDefaultDb` - 默认情况下如果通过 `options.database` 请求数据库连接无法成功的话会报错。但是如果 `options.fallbackToDefaultDb` 设置为 `true` 的话，将会替换为使用用户的默认数据库。（默认：`false`）。
   
 * `options.enableAnsiNullDefault` - If true, SET ANSI_NULL_DFLT_ON ON will be set in the initial sql. This means new
  columns will be nullable by default. See the [T-SQL documentation](https://msdn.microsoft.com/en-us/library/ms187375.aspx)
@@ -240,10 +239,10 @@
 
 * `options.localAddress` - A string indicating which network interface (ip address) to use when connecting to SQL Server.
 
-* `options.useColumnNames` - A boolean determining whether to return rows as arrays or key-value collections. (default: `false`).
+* `options.useColumnNames` - A boolean determining whether to return rows as arrays or key-value collections. （默认：`false`）.
 
 * `options.camelCaseColumns` - A boolean, controlling whether the column names returned will have the first letter
- converted to lower case (`true`) or not. This value is ignored if you provide a `columnNameReplacer`. (default: `false`).
+ converted to lower case (`true`) or not. This value is ignored if you provide a `columnNameReplacer`. （默认：`false`）.
 
 * `options.isolationLevel` - The default isolation level that transactions will be run with. The isolation levels are
  available from `require('tedious').ISOLATION_LEVEL`.
@@ -266,47 +265,41 @@
    (default: `READ_COMMITTED`)
  
 * `options.readOnlyIntent` - A boolean, determining whether the connection will request read-only access from a
- SQL Server Availability Group. For more information, see here. (default: `false`).
+ SQL Server Availability Group. For more information, see here. （默认：`false`）.
 
 * `options.encrypt` - A boolean determining whether or not the connection will be encrypted. Set to true if you're
- on Windows Azure. (default: `false`).
+ on Windows Azure. （默认：`false`）.
  
 * `options.cryptoCredentialsDetails` - When encryption is used, an object may be supplied that will be used for the
  first argument when calling [tls.createSecurePair](http://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurepair_credentials_isserver_requestcert_rejectunauthorized)
   (default: `{}`).
   
-* `options.rowCollectionOnDone` - A boolean, that when true will expose received rows in Requests' `done*` events.
- See done, [doneInProc](http://tediousjs.github.io/tedious/api-request.html#event_doneInProc)
- and [doneProc](http://tediousjs.github.io/tedious/api-request.html#event_doneProc). (default: `false`)
+* `options.rowCollectionOnDone` - 布尔值，如果设置为 `true` 将在请求的 `done*` 事件中返回接收到的行。
+ 请看 [doneInProc](http://tediousjs.github.io/tedious/api-request.html#event_doneInProc)
+ 和 [doneProc](http://tediousjs.github.io/tedious/api-request.html#event_doneProc)。（默认：`false`）
    
-   Caution: If many rows are received, enabling this option could result in excessive memory usage.
+   警告：如果接收到许多行，启用此选项可能会导致内存占用过多。
 
-* `options.rowCollectionOnRequestCompletion` - A boolean, that when true will expose received rows
- in Requests' completion callback. See [new Request](http://tediousjs.github.io/tedious/api-request.html#function_newRequest). (default: `false`)
+* `options.rowCollectionOnRequestCompletion` - 布尔值，如果设置为 `true` 将在请求的完成回调中返回接收到的行。请看 [new Request](http://tediousjs.github.io/tedious/api-request.html#function_newRequest). （默认：`false`）
 
-   Caution: If many rows are received, enabling this option could result in excessive memory usage.
+   警告：如果接收到许多行，启用此选项可能会导致内存占用过多。
 
-* `options.tdsVersion` - The version of TDS to use. If the server doesn't support the specified version, a negotiated version
- is used instead. The versions are available from `require('tedious').TDS_VERSION`.
+* `options.tdsVersion` - 使用的TDS版本。如果服务器不支持指定的版本，则使用协商的版本。可以通过 `require('tedious').TDS_VERSION` 获取可用的版本：
    * `7_1`
    * `7_2`
    * `7_3_A`
    * `7_3_B`
    * `7_4`
    
-  (default: `7_4`)
+  （默认 `7_4`）
 
-* `options.debug.packet` - A boolean, controlling whether `debug` events will be emitted with text describing packet
- details (default: `false`).
+* `options.debug.packet` - 布尔值，用来控制 `debug` 事件是否发出描述包细节的文本（默认：`false`）。
  
-* `options.debug.data` - A boolean, controlling whether `debug` events will be emitted with text describing packet data
- details (default: `false`).
+* `options.debug.data` - 布尔值，用来控制 `debug` 事件是否发出描述包数据细节的文本（默认：`false`）。
  
-* `options.debug.payload` - A boolean, controlling whether `debug` events will be emitted with text describing packet
- payload details (default: `false`).
+* `options.debug.payload` - 布尔值，用来控制 `debug` 事件是否发出描述数据包有效负载的文本（默认：`false`）。
  
-* `options.debug.token` - A boolean, controlling whether `debug` events will be emitted with text describing token stream
- tokens (default: `false`).
+* `options.debug.token` - 布尔值，用来控制 `debug` 事件是否发出描述令牌流令牌的文本（默认：`false`）。
 
 ## `mongodb` 连接选项
 

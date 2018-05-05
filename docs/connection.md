@@ -7,28 +7,36 @@
 
 ## 什么是 `Connection`
 
-连接建立了与数据库的真正连接。
+只有当你建立了连接你才能和数据库进行交互。
 
-根据数据库的类型，它也可能建立一个连接池。
+TypeORM的 `Connection` 并不像看起来的那样建立一个数据库连接，而是建立了一个数据库的连接池。
 
-连接（或连接池）的建立是在调用`connect`的时候触发的。
+如果你对真正的数据库连接感兴趣，那么请参考`QueryRunner`的文档。
+
+每个 `QueryRunner` 的实例都是一个独立的数据库连接。
+
+连接池的建立是在 `Connection` 调用 `connect` 方法的时候触发的。
+
+通过 `createConnection` 函数建立连接将会自动调用 `connect` 方法。
 
 断开（或关闭连接池中的所有连接）是在调用`close`的时候触发的。
 
 通常来说，你必须在你的应用引导程序中创建一次连接，并在你完全用完数据库后关闭它。
 
+在实际应用中，如果你正在为站点构建后端服务并且后端服务器始终保持运行 - 你永远不要关闭连接。
+
 ## 创建一个新连接
 
 有好几种方法可以创建连接。
 
-最简单常用的方法是使用 `createConnection` 和 `createConnections`。
+最简单常用的方法是使用 `createConnection` 和 `createConnections` 函数。
 
 * `createConnection` 创建一个连接：
 
 ```typescript
 import {createConnection, Connection} from "typeorm";
 
-const connection: Connection = await createConnection({
+const connection = await createConnection({
     type: "mysql",
     host: "localhost",
     port: 3306,
@@ -43,7 +51,7 @@ const connection: Connection = await createConnection({
 ```typescript
 import {createConnections, Connection} from "typeorm";
 
-const connections: Connection[] = await createConnections([{
+const connections = await createConnections([{
     name: "default",
     type: "mysql",
     host: "localhost",
@@ -62,27 +70,28 @@ const connections: Connection[] = await createConnections([{
 }]);
 ```
 
-这两种方法都自动调用 `Connection#connect`。
+这两个函数都基于传递的连接选项创建 `Connection`，并调用 `connect` 方法。
 
-如果没有指定连接选项，这两种方法都可以自动地从`ormconfig`文件读取配置。
+你可以在你的项目根目录创建 [ormconfig.json](./using-ormconfig.md) 文件，如果没有指定连接选项，这两种方法都可以自动地从`ormconfig`文件读取配置。
+
+与 `node_modules` 同级的目录为项目的根目录。
 
 例如：
 
 ```typescript
 import {createConnection, Connection} from "typeorm";
 
-// here createConnection will load connection options from
+// 这里 createConnection 将从
 // ormconfig.json / ormconfig.js / ormconfig.yml / ormconfig.env / ormconfig.xml
-// files, or from special environment variables
-// if ormconfig contains multiple connections and no `name` is specified, then it will load connection named "default" 
-// or connection without name at all (which means it will be named "default" by default)
+// 文件或是特定的环境变量里载入连接选项
 const connection: Connection = await createConnection();
 
-// or you can specify the name of the connection to create
+// 或者你可以指定要创建连接的名称
+// 如果省略了名称，它将创建一个没有指定名称的连接。
 const secondConnection: Connection = await createConnection("test2-connection");
 
-// if createConnections is called instead of createConnection then 
-// it will initialize and return all connections defined in ormconfig file
+// 如果使用createConnections来代替createConnection，则会初始化并返回ormconfig文件中定义的所有连接
+const connections: Connection[] = await createConnections();
 ```
 
 不同的连接必须有不同的名称。
@@ -91,15 +100,15 @@ const secondConnection: Connection = await createConnection("test2-connection");
 
 通常，当你有多个数据库或多个连接配置时，你会使用多个连接。
 
-一旦你创建了一个连接，你就可以从你的应用程序的任何地方获得它，使用 `getConnection`：
+一旦你创建了一个连接，你就可以从你的应用程序的任何地方获得它，使用函数 `getConnection`：
 
 ```typescript
 import {getConnection} from "typeorm";
 
-// can be used once createConnection is called and is resolved
+// 当`createConnection`被成功调用之后就可以使用
 const connection = getConnection();
 
-// if you have multiple connections you can get connection by name:
+// 如果你有多连接你可以通过名称来得到连接;
 const secondConnection = getConnection("test2-connection");
 ```
 
@@ -116,8 +125,9 @@ const secondConnection = getConnection("test2-connection");
 ```typescript
 import {getConnectionManager, ConnectionManager, Connection} from "typeorm";
 
-const connectionManager: ConnectionManager = getConnectionManager(); // or you can initialize your own connection manager like this: new ConnectionManager()
-const connection: Connection = connectionManager.create({
+const connectionManager = getConnectionManager();
+
+const connection = connectionManager.create({
     type: "mysql",
     host: "localhost",
     port: 3306,
@@ -137,8 +147,9 @@ await connection.connect(); // performs connection
 ```typescript
 import {getConnectionManager, ConnectionManager, Connection} from "typeorm";
 
-const connectionManager = new ConnectionManager(); // or you can initialize your own connection manager like this: new ConnectionManager()
-const connection: Connection = connectionManager.create({
+const connectionManager = new ConnectionManager();
+
+const connection = connectionManager.create({
     type: "mysql",
     host: "localhost",
     port: 3306,
@@ -199,7 +210,7 @@ export class UserController {
     
     @Get("/users/:id")
     getAll(@Param("id") userId: number) {
-        return getRepository(User).findOneById(User);
+        return getRepository(User).findOne(userId);
     }
     
 }

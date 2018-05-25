@@ -191,13 +191,17 @@ await timber.remove();
 
         `npm install sql.js --save`
     
-    * **Oracle** (experimental)
+    * **Oracle**
     
         `npm install oracledb --save`
     
     可以根据你的数据库选择安装上面的任意一个.
     
-    使用oracle驱动需要参考安装说明：[地址](https://github.com/oracle/node-oracledb).
+    使用oracle驱动需要参考安装说明：[地址](https://github.com/oracle/node-oracledb)
+
+    * **MongoDB**
+
+        `npm install mongodb --save`
 
 #### TypeScript配置
 

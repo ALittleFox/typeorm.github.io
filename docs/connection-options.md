@@ -1,16 +1,18 @@
 # 连接选项
 
-* [什么是`ConnectionOptions`](#what-is-connectionoptions)
-* [通用连接选项](#common-connection-options)
-* [`mysql` / `mariadb` 连接选项](#mysql--mariadb-connection-options)
-* [`postgres` 连接选项](#postgres-connection-options)
-* [`sqlite` 连接选项](#sqlite-connection-options)
-* [`websql` 连接选项](#websql-connection-options)
-* [`cordova` 连接选项](#cordova-connection-options)
-* [`mssql` 连接选项](#mssql-connection-options)
-* [`mongodb` 连接选项](#mongodb-connection-options)
-* [`sql.js` 连接选项](#sqljs-connection-options)
-* [连接选项示例](#connection-options-example)
+* [什么是`ConnectionOptions`](#什么是connectionoptions)
+* [通用连接选项](#通用连接选项)
+* [`mysql` / `mariadb` 连接选项](#mysql--mariadb-连接选项)
+* [`postgres` 连接选项](#postgres-连接选项)
+* [`sqlite` 连接选项](#sqlite-连接选项)
+* [`cordova` 连接选项](#cordova-连接选项)
+* [`react-native` 连接选项](#react-native-连接选项)
+* [`nativescript` 连接选项](#nativescript-连接选项)
+* [`mssql` 连接选项](#mssql-连接选项)
+* [`mongodb` 连接选项](#mongodb-连接选项)
+* [`sql.js` 连接选项](#sqljs-连接选项)
+* [`expo` 连接选项](#expo-连接选项)
+* [连接选项示例](#连接选项示例)
     
 ## 什么是`ConnectionOptions`
 
@@ -171,6 +173,14 @@
 * `database` - 数据库名
 
 * `location` - 数据库保存路径。 选项请看 [cordova-sqlite-storage](https://github.com/litehelpers/Cordova-sqlite-storage#opening-a-database)。
+
+## `react-native` 连接选项
+* `database` - 数据库名
+
+* `location` - 数据库保存路径。 选项请看 [react-native-sqlite-storage](https://github.com/andpor/react-native-sqlite-storage#opening-a-database)。
+
+## `nativescript`  连接选项
+* `database` - 数据库名
 
 ## `mssql` 连接选项
 

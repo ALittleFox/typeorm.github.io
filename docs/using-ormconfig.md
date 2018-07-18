@@ -1,12 +1,12 @@
 # 使用 ormconfig.json
 
-* [从配置文件创建一个新的连接](#creating-a-new-connection-from-the-configuration-file)
-* [使用 `ormconfig.json`](#loading-from-ormconfigjson)
-* [使用 `ormconfig.js`](#loading-from-ormconfigjs)
-* [使用环境变量](#loading-from-ormconfigenv-or-from-environment-variables)
-* [使用 `ormconfig.yml`](#loading-from-ormconfigyml)
-* [使用 `ormconfig.xml`](#loading-from-ormconfigxml)
-* [覆盖在ormconfig中定义的选项](#overriding-options-defined-in-ormconfig)
+* [从配置文件创建一个新的连接](#从配置文件创建一个新的连接)
+* [使用 `ormconfig.json`](#使用-ormconfig.json)
+* [使用 `ormconfig.js`](#使用-ormconfig.js)
+* [使用环境变量](#使用环境变量)
+* [使用 `ormconfig.yml`](#使用-ormconfig.yml)
+* [使用 `ormconfig.xml`](#使用-ormconfig.xml)
+* [覆盖在ormconfig中定义的选项](#覆盖在ormconfig中定义的选项)
 
 ## 从配置文件创建一个新的连接
 

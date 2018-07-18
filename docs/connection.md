@@ -45,8 +45,15 @@ const connection = await createConnection({
     database: "test"
 });
 ```
+也可以直接通过类型和链接创建连接：
+```js
+createConnection({
+    type: 'postgres',
+    url: 'postgres://test:test@localhost/test'
+})
+```
 
-* `createConnections` 创建多个连接：
+`createConnections` creates multiple connections:
 
 ```typescript
 import {createConnections, Connection} from "typeorm";

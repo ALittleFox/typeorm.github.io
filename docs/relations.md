@@ -1,10 +1,10 @@
 # 关系
 
-* [什么是关系](#what-are-relations)
-* [关系选项](#relation-options)
-* [级联](#cascades)
-* [`@JoinColumn` 选项](#joincolumn-options)
-* [`@JoinTable` 选项](#jointable-options)
+* [什么是关系](#什么是关系)
+* [关系选项](#关系选项)
+* [级联](#级联)
+* [`@JoinColumn` 选项](#joincolumn-选项)
+* [`@JoinTable` 选项](#jointable-选项)
 
 ## 什么是关系
 
@@ -67,7 +67,7 @@ export class Question {
     text: string;
     
     @ManyToMany(type => Category, category => category.questions, {
-        cascadeInsert: true
+        cascade: true
     })
     @JoinTable()
     categories: Category[];

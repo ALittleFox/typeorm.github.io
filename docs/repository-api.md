@@ -122,13 +122,22 @@ await repository.remove([
 ]);
 ```
 
-* `insert` - Inserts a new entity.
+* `insert` - Inserts a new entity, or array of entities.
 
 ```typescript
 await repository.insert({
     firstName: "Timber",
     lastName: "Timber"
 });
+
+
+await manager.insert(User, [{ 
+    firstName: "Foo", 
+    lastName: "Bar" 
+}, { 
+    firstName: "Rizz", 
+    lastName: "Rak" 
+}]);
 ```
 
 * `update` - Partially updates entity by a given update options or entity id.
@@ -153,6 +162,17 @@ await repository.delete({ firstName: "Timber" });
 
 ```typescript
 const count = await repository.count({ firstName: "Timber" });
+```
+
+* `increment` - Increments some column by provided value of entities that match given options.
+
+```typescript
+await manager.increment(User, { firstName: "Timber" }, "age", 3);
+```
+
+* `decrement` - Decrements some column by provided value that match given options.
+```typescript
+await manager.decrement(User, { firstName: "Timber" }, "age", 3);
 ```
 
 * `find` - Finds entities that match given options.

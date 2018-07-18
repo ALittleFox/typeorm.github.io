@@ -4,11 +4,11 @@ TypeORM支持邻接表和闭包表模式存储树形结构。
 
 想了解更多关于层次结构表的知识，请看这个[比尔·卡尔文的精彩演讲](https://www.slideshare.net/billkarwin/models-for-hierarchical-data).
 
-* [邻接表](#adjacency-list)
-* [嵌套集合](#nested-set)
-* [物化路径（也叫路径枚举）](#materialized-path-aka-path-enumeration)
-* [闭包表](#closure-table)
-* [使用树形实体](#working-with-tree-entities)
+* [邻接表](#邻接表)
+* [嵌套集合](#嵌套集合)
+* [物化路径（也叫路径枚举）](#物化路径（也叫路径枚举）)
+* [闭包表](#闭包表)
+* [使用树形实体](#使用树形实体)
 
 ### 邻接表
 
@@ -42,7 +42,7 @@ export class Category {
      
 ```
 
-## Nested set
+## 嵌套集合
 
 Nested set is another pattern of storing tree structures in the database.
 Its very efficient for reads, but bad for writes.
@@ -70,7 +70,7 @@ export class Category {
 }
 ```
 
-## Materialized Path (aka Path Enumeration)
+## 物化路径（也叫路径枚举）
 
 Materialized Path (also called Path Enumeration) is another pattern of storing tree structures in the database.
 Its simple and effective.
@@ -97,7 +97,7 @@ export class Category {
 }
 ```
 
-## Closure table
+## 闭包表
 
 Closure table stores relations between parent and child in a separate table in a special way. 
 It's efficient in both reads and writes.
@@ -124,7 +124,7 @@ export class Category {
 }
 ```
 
-## Working with tree entities
+## 使用树形实体
 
 To make bind tree entities to each other its important to set to children entities their parent and save them,
 for example:

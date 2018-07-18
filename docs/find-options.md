@@ -27,9 +27,9 @@ userRepository.find({
     join: {
         alias: "user",
         leftJoinAndSelect: {
-            "profile": "user.profile",
-            "photo": "user.photos",
-            "video": "user.videos"
+            profile: "user.profile",
+            photo: "user.photos",
+            video: "user.videos"
         }
     }
 });
@@ -51,8 +51,8 @@ userRepository.find({ where: { name: { first: "Timber", last: "Saw" } } });
 ```typescript
 userRepository.find({ 
     order: {
-        "name": "ASC",
-        "id": "DESC"
+        name: "ASC",
+        id: "DESC"
     }
 });
 ```
@@ -75,6 +75,20 @@ userRepository.find({
 });
 ```
 
+** If you are using typeorm with MSSQL, and want to use `take` or `limit`, you need to use order as well or you will receive the following error:   `'Invalid usage of the option NEXT in the FETCH statement.'`
+
+```typescript
+userRepository.find({ 
+    order: { 
+        columnName: 'ASC' 
+        }, 
+    skip: 0, 
+    take: 10 
+})
+```
+
+
+
 * `cache` - Enables or disables query result caching. See [caching](caching.md) for more information and options.
 
 ```typescript
@@ -94,14 +108,15 @@ userRepository.find({
         lastName: "Saw" 
     },
     order: {
-        "name": "ASC",
-        "id": "DESC"
+        name: "ASC",
+        id: "DESC"
     },
     skip: 5,
     take: 10,
     cache: true
 });
 ```
+
 
 ## Advanced options
 

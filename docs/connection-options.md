@@ -223,7 +223,7 @@
  
 * `pool.autostart` - 布尔类型，在调用构造函数之后，连接池是否应该立即开始创建资源等。（默认：`true`）。
 
-* `pool.victionRunIntervalMillis` - 多久进行一次驱逐检查。 默认 `0` （不检查）。
+* `pool.evictionRunIntervalMillis` - 多久进行一次驱逐检查。 默认 `0` （不检查）。
 
 * `pool.numTestsPerRun` -每次驱逐检查使用的资源数量。默认 `3`。
 
